@@ -3,5 +3,5 @@ from django.apps import AppConfig
 
 class EventsConfig(AppConfig):
     name = 'events'
-    def ready():
+    def ready(self):
         from . import signals
