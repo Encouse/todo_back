@@ -39,6 +39,14 @@ EMAIL_PORT = '587'
 EMAIL_HOST_USER = os.environ.get('EMAIL_USERNAME')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
+CACHES = {
+    "default": {
+         "BACKEND": "redis_cache.RedisCache",
+         "LOCATION": os.environ.get('REDIS_URL'),
+    }
+}
+
+
 
 
 # Application definition
