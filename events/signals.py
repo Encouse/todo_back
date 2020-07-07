@@ -6,4 +6,8 @@ from main_app import models, tasks
 @receiver(post_save, sender = models.Event)
 def send_mail(sender, instance = None, created = False, **kwargs):
     if created:
-        tasks.send_event_mail.delay(instance)
+        email = instance.user.email
+        datetime = instance.datetime_end
+        title = instance.title
+        print('doing')
+        tasks.send_event_mail.delay(email, datetime, title)
