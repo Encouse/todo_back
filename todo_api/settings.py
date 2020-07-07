@@ -11,7 +11,28 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import redis
 import django_heroku
+
+
+BROKER_URL = redis.from_url(os.environ.get("REDIS_URL"))
+CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Canada/Eastern'
+
+redis_url = urlparse.urlparse(os.environ.get('REDIS_URL'))
+CACHES = {
+"default": {
+"BACKEND": "redis_cache.RedisCache",
+"LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
+"OPTIONS": {
+"PASSWORD": redis_url.password,
+"DB": 0,
+}
+}
+}
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
