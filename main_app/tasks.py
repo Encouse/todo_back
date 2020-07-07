@@ -3,13 +3,10 @@ from django.core.mail import send_mail
 import time
 from datetime import datetime
 import os
-import redis
-
-r = redis.from_url(os.environ.get("REDIS_URL"))
 
 app = Celery('tasks', broker='pyamqp://guest@localhost//')
-app.conf.update(BROKER_URL=r,
-                CELERY_RESULT_BACKEND=r,)
+app.conf.update(BROKER_URL=os.environ.get("REDIS_URL"),
+                CELERY_RESULT_BACKEND=os.environ.get("REDIS_URL"),)
 
 
 @app.task
