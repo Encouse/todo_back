@@ -4,7 +4,7 @@ import time
 from datetime import datetime
 import os
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'main_app.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'todo_api.settings')
 
 app = Celery('tasks')
 app.conf.update(BROKER_URL=os.environ.get("REDIS_URL"),
