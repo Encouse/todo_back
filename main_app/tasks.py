@@ -4,6 +4,8 @@ import time
 from datetime import datetime
 import os
 
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'main_app.settings')
+
 app = Celery('tasks')
 app.conf.update(BROKER_URL=os.environ.get("REDIS_URL"),
                 CELERY_RESULT_BACKEND=os.environ.get("REDIS_URL"),)
