@@ -4,7 +4,7 @@ import time
 from datetime import datetime
 import os
 
-app = Celery('tasks', broker='pyamqp://guest@localhost//')
+app = Celery('tasks')
 app.conf.update(BROKER_URL=os.environ.get("REDIS_URL"),
                 CELERY_RESULT_BACKEND=os.environ.get("REDIS_URL"),)
 
